@@ -1,0 +1,8 @@
+
+## ProjectPlus Version 1.2
+
+  * SCM Badges would not display in some cases
+    * When a project was saved in a directory other than the project root, badges would not display.
+    * Also fixes some other less common cases which would prevent badges from working.
+
+Please report any issues you find at the [bug tracker](http://ciaranwal.sh/projectplus-files/ticket).

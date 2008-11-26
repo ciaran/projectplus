@@ -1,0 +1,19 @@
+Downloaded APR from http://www.smudge-it.co.uk/pub/apache/apr/apr-1.3.2.tar.bz2
+
+* configure
+* Edit Makefile: change libdir to libdir = @loader_path/../Libraries
+* Remove the check in ./libtool to allow for relative rpath values
+* make EXTRA_CFLAGS='-arch ppc -arch i386'
+
+Download APR-Util http://www.smudge-it.co.uk/pub/apache/apr/apr-util-1.3.2.tar.bz2
+
+* configure --with-apr=/path/to/apr/download
+* Edit Makefile: change APU_DSO_LIBDIR and libdir to @loader_path/../Libraries
+* make EXTRA_CFLAGS='-arch ppc -arch i386'
+
+Downloaded SVN from http://subversion.tigris.org/downloads/subversion-1.5.0.tar.bz2
+
+* configure --with-apr=/path/to/apr/download --with-apr-util=/path/to/apr-util/download --without-neon
+* Edit the libdir= line in the Makefile to be: libdir = @loader_path/../Libraries
+* Remove the check in ./libtool to allow for relative rpath values
+* Run make EXTRA_CFLAGS='-arch ppc -arch i386'

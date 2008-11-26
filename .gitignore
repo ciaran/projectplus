@@ -1,0 +1,4 @@
+build
+ProjectPlus.xcodeproj/ciaran.*
+*.tmproj
+.DS_Store
