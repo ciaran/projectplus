@@ -13,11 +13,15 @@ extern NSString* ProjectPlus_redrawRequired;
 	BOOL quickLookAvailable;
 	IBOutlet NSView *preferencesView;
 	IBOutlet NSTabView* preferencesTabView;
+	IBOutlet NSWindow* sortingDefaultsSheet;
 
 	IBOutlet SUUpdater* sparkleUpdater;
 }
 + (ProjectPlus*)sharedInstance;
 - (id)initWithPlugInController:(id <TMPlugInController>)aController;
+
+- (IBAction)showSortingDefaultsSheet:(id)sender;
+- (IBAction)orderOutShortingDefaultSheet:(id)sender;
 
 - (IBAction)notifyOutlineViewsAsDirty:(id)sender;
 - (void)watchDefaultsKey:(NSString*)keyPath;

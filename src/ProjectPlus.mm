@@ -144,6 +144,17 @@ static ProjectPlus* SharedInstance = nil;
 		[preferencesTabView selectTabViewItemWithIdentifier:[[NSUserDefaults standardUserDefaults] stringForKey:@"ProjectPlus Selected Tab Identifier"]];
 }
 
+- (IBAction)showSortingDefaultsSheet:(id)sender
+{
+	[NSApp beginSheet:sortingDefaultsSheet modalForWindow:[preferencesTabView window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+}
+
+- (IBAction)orderOutShortingDefaultSheet:(id)sender
+{
+	[sortingDefaultsSheet orderOut:nil];
+	[NSApp endSheet:sortingDefaultsSheet];
+}
+
 - (void)tabView:(NSTabView*)tabView didSelectTabViewItem:(NSTabViewItem*)tabViewItem
 {
 	[[NSUserDefaults standardUserDefaults] setObject:[tabViewItem identifier] forKey:@"ProjectPlus Selected Tab Identifier"];

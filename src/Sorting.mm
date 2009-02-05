@@ -4,6 +4,9 @@
 {
 }
 + (BOOL)useSorting;
++ (BOOL)descending;
++ (BOOL)byExtension;
++ (BOOL)foldersOnTop;
 
 + (void)addProjectController:(id)projectController;
 + (void)removeProjectController:(id)projectController;
@@ -81,16 +84,6 @@ int sort_items(id a, id b, void *context)
 @end
 
 @implementation NSWindowController (OakProjectController_Sorting)
-- (void)ProjectPlus_Sorting_windowDidLoad
-{
-	[self ProjectPlus_Sorting_windowDidLoad];
-	
-	if(not [ProjectPlusSorting useSorting])
-		return;
-
-	[ProjectPlusSorting addProjectController:self];
-}
-
 - (NSMutableDictionary*)sortDescriptor
 {
 	return [ProjectPlusSorting sortDescriptorForProjectController:self];
@@ -100,9 +93,23 @@ int sort_items(id a, id b, void *context)
 {
 	NSMutableArray* rootItems = [self valueForKey:@"rootItems"];
 	[rootItems recursiveSortItemsAscending:! [[[self sortDescriptor] objectForKey:@"descending"] boolValue]
-                              byExtension:[[[self sortDescriptor] objectForKey:@"byExtension"] boolValue]
-                             foldersOnTop:[[[self sortDescriptor] objectForKey:@"foldersOnTop"] boolValue]];
+							   byExtension:[[[self sortDescriptor] objectForKey:@"byExtension"] boolValue]
+							  foldersOnTop:[[[self sortDescriptor] objectForKey:@"foldersOnTop"] boolValue]];
 	[[self valueForKey:@"outlineView"] reloadData];
+}
+
+- (void)ProjectPlus_Sorting_windowDidLoad
+{
+	[self ProjectPlus_Sorting_windowDidLoad];
+	
+	if(not [ProjectPlusSorting useSorting])
+		return;
+
+	[ProjectPlusSorting addProjectController:self];
+	[[self sortDescriptor] setObject:[NSNumber numberWithBool:[ProjectPlusSorting foldersOnTop]] forKey:@"foldersOnTop"];
+	[[self sortDescriptor] setObject:[NSNumber numberWithBool:[ProjectPlusSorting byExtension]] forKey:@"byExtension"];
+	[[self sortDescriptor] setObject:[NSNumber numberWithBool:[ProjectPlusSorting descending]] forKey:@"descending"];
+	[self resortItems];
 }
 
 - (void)toggleDescending:(id <NSMenuItem>)menuItem
@@ -147,6 +154,7 @@ int sort_items(id a, id b, void *context)
                                         action:@selector(toggleDescending:)
                                  keyEquivalent:@""];
 		[item setTarget:[self valueForKey:@"delegate"]];
+		[item setState:[ProjectPlusSorting descending]];
 		[sortingSubMenu addItem:item];
 		[item release];
 
@@ -154,6 +162,7 @@ int sort_items(id a, id b, void *context)
                                         action:@selector(toggleByExtension:)
                                  keyEquivalent:@""];
 		[item setTarget:[self valueForKey:@"delegate"]];
+		[item setState:[ProjectPlusSorting byExtension]];
 		[sortingSubMenu addItem:item];
 		[item release];
 
@@ -161,6 +170,7 @@ int sort_items(id a, id b, void *context)
                                         action:@selector(toggleFoldersOnTop:)
                                  keyEquivalent:@""];
 		[item setTarget:[self valueForKey:@"delegate"]];
+		[item setState:[ProjectPlusSorting foldersOnTop]];
 		[sortingSubMenu addItem:item];
 		[item release];
 
@@ -190,6 +200,21 @@ static NSMutableArray* sortDescriptors = [[NSMutableArray alloc] initWithCapacit
 	[OakProjectController jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(ProjectPlus_Sorting_windowDidLoad) error:NULL];
 	[OakMenuButton jr_swizzleMethod:@selector(awakeFromNib) withMethod:@selector(ProjectPlus_Sorting_awakeFromNib) error:NULL];
 	[OakMenuButton jr_swizzleMethod:@selector(validateMenuItem:) withMethod:@selector(ProjectPlus_Sorting_validateMenuItem:) error:NULL];
+}
+
++ (BOOL)foldersOnTop
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:@"ProjectPlusSortingFoldersOnTop"];
+}
+
++ (BOOL)byExtension
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:@"ProjectPlusSortingByExtension"];
+}
+
++ (BOOL)descending
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:@"ProjectPlusSortingDescending"];
 }
 
 + (BOOL)useSorting
