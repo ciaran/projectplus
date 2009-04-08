@@ -19,11 +19,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.2</string>
+	<string>1.3</string>
 	<key>NSPrincipalClass</key>
 	<string>ProjectPlus</string>
 	<key>SUFeedURL</key>
 	<string>http://ciaranwal.sh/projectplus-files/appcast.xml</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 	<key>SUEnableSystemProfiling</key>
 	<true/>
 	<key>ReliesOnClassesFromVersion</key>
