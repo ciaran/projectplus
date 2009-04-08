@@ -27,8 +27,8 @@
 		91280AE80E4606B700B7ED82 /* libserf-0.0.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91280AD50E4606B700B7ED82 /* libserf-0.0.0.0.dylib */; };
 		91280AE90E4606B700B7ED82 /* libneon.27.1.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91280AD60E4606B700B7ED82 /* libneon.27.1.2.dylib */; };
 		91280AEA0E4606B700B7ED82 /* libexpat.0.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91280AD70E4606B700B7ED82 /* libexpat.0.1.0.dylib */; };
-		91280AEB0E4606B700B7ED82 /* libaprutil-1.0.2.12.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91280AD80E4606B700B7ED82 /* libaprutil-1.0.2.12.dylib */; };
-		91280AEC0E4606B700B7ED82 /* libapr-1.0.2.12.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91280AD90E4606B700B7ED82 /* libapr-1.0.2.12.dylib */; };
+		91280AEB0E4606B700B7ED82 /* libaprutil-1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91280AD80E4606B700B7ED82 /* libaprutil-1.0.dylib */; };
+		91280AEC0E4606B700B7ED82 /* libapr-1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91280AD90E4606B700B7ED82 /* libapr-1.0.dylib */; };
 		913A313F0CFFC75600436C23 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913A313E0CFFC75600436C23 /* Security.framework */; };
 		915AD42B0ED9E2070017679A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 915AD3DA0ED9E2070017679A /* InfoPlist.strings */; };
 		915AD4600ED9E2070017679A /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 915AD4180ED9E2070017679A /* Preferences.xib */; };
@@ -87,8 +87,8 @@
 		91280AD50E4606B700B7ED82 /* libserf-0.0.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libserf-0.0.0.0.dylib"; sourceTree = "<group>"; };
 		91280AD60E4606B700B7ED82 /* libneon.27.1.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libneon.27.1.2.dylib; sourceTree = "<group>"; };
 		91280AD70E4606B700B7ED82 /* libexpat.0.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libexpat.0.1.0.dylib; sourceTree = "<group>"; };
-		91280AD80E4606B700B7ED82 /* libaprutil-1.0.2.12.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libaprutil-1.0.2.12.dylib"; sourceTree = "<group>"; };
-		91280AD90E4606B700B7ED82 /* libapr-1.0.2.12.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libapr-1.0.2.12.dylib"; sourceTree = "<group>"; };
+		91280AD80E4606B700B7ED82 /* libaprutil-1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libaprutil-1.0.dylib"; sourceTree = "<group>"; };
+		91280AD90E4606B700B7ED82 /* libapr-1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libapr-1.0.dylib"; sourceTree = "<group>"; };
 		913A313E0CFFC75600436C23 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		915AD3DB0ED9E2070017679A /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		915AD4180ED9E2070017679A /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
@@ -143,8 +143,8 @@
 				91280AE80E4606B700B7ED82 /* libserf-0.0.0.0.dylib in Frameworks */,
 				91280AE90E4606B700B7ED82 /* libneon.27.1.2.dylib in Frameworks */,
 				91280AEA0E4606B700B7ED82 /* libexpat.0.1.0.dylib in Frameworks */,
-				91280AEB0E4606B700B7ED82 /* libaprutil-1.0.2.12.dylib in Frameworks */,
-				91280AEC0E4606B700B7ED82 /* libapr-1.0.2.12.dylib in Frameworks */,
+				91280AEB0E4606B700B7ED82 /* libaprutil-1.0.dylib in Frameworks */,
+				91280AEC0E4606B700B7ED82 /* libapr-1.0.dylib in Frameworks */,
 				911112540E5C8AF900BF76B4 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,8 +285,8 @@
 				91280AD50E4606B700B7ED82 /* libserf-0.0.0.0.dylib */,
 				91280AD60E4606B700B7ED82 /* libneon.27.1.2.dylib */,
 				91280AD70E4606B700B7ED82 /* libexpat.0.1.0.dylib */,
-				91280AD80E4606B700B7ED82 /* libaprutil-1.0.2.12.dylib */,
-				91280AD90E4606B700B7ED82 /* libapr-1.0.2.12.dylib */,
+				91280AD80E4606B700B7ED82 /* libaprutil-1.0.dylib */,
+				91280AD90E4606B700B7ED82 /* libapr-1.0.dylib */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
