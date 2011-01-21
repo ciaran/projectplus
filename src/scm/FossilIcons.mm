@@ -162,20 +162,16 @@ static FossilIcons *SharedInstance;
 					switch(*statusChar)
 					{
             case 'U': /* UNCHANGED */
-              NSLog(@"unchanged");
               status = SCMIconsStatusVersioned;
               break;
 						case 'E': /* EDITED */
             case 'R': /* RENAMED */
-              NSLog(@"edited");
               status = SCMIconsStatusModified;
               break;
 						case 'A': /* ADDED */
-              NSLog(@"added");
               status = SCMIconsStatusAdded;
               break;
 						case 'D': /* DELETED */
-              NSLog(@"deleted");
               status = SCMIconsStatusDeleted;
               break;
 					}
