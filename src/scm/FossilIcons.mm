@@ -55,6 +55,55 @@ static FossilIcons *SharedInstance;
 	return [[SCMIcons sharedInstance] pathForVariable:@"TM_FOSSIL" paths:[NSArray arrayWithObjects:@"/opt/local/bin/fossil",@"/usr/local/bin/fossil",@"/usr/bin/fossil",nil]];
 }
 
+- (NSString *)localRootForProjectPath:(NSString*)projectPath
+{
+  //local-root:   /Users/dmitry/.Trash/fossil-test/
+	NSString* exePath = [self fossilPath];
+	if(!exePath || ![[NSFileManager defaultManager] fileExistsAtPath:exePath])
+		return nil;
+
+  NSTask* task = [[NSTask new] autorelease];
+  [task setLaunchPath:exePath];
+  [task setCurrentDirectoryPath:projectPath];
+  [task setArguments:[NSArray arrayWithObjects:@"info", nil]];
+
+  NSPipe *pipe = [NSPipe pipe];
+  [task setStandardOutput: pipe];
+  [task setStandardError:[NSPipe pipe]];
+  
+  NSFileHandle *file = [pipe fileHandleForReading];
+  
+  [task launch];
+  
+  NSData *data = [file readDataToEndOfFile];
+  
+  [task waitUntilExit];
+  
+  if([task terminationStatus] != 0)
+  {
+    return nil;
+  }
+  
+  NSString *string             = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+  NSArray* lines               = [string componentsSeparatedByString:@"\n"];
+  if([lines count] > 1)
+  {
+    for(int index = 0; index < [lines count]; index++)
+    {
+      NSString *line = [lines objectAtIndex:index];
+      NSArray *vars = [line componentsSeparatedByString:@":"];
+      if ([vars count] > 1) 
+      {
+        if ([[vars objectAtIndex:0] isEqualToString:@"local-root"]) 
+        {
+          return [[vars objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        }
+      }
+    }
+  }
+  return nil;
+}
+
 - (void)executeLsFilesUnderPath:(NSString*)path inProject:(NSString*)projectPath;
 {
 	NSString* exePath = [self fossilPath];
@@ -63,7 +112,15 @@ static FossilIcons *SharedInstance;
 
 	@try
 	{
-		NSTask* task = [[NSTask new] autorelease];
+    NSString *localRoot = [self localRootForProjectPath:projectPath];
+    if (!localRoot)
+    {
+			// Prevent repeated calling
+			[projectStatuses setObject:[NSDictionary dictionary] forKey:projectPath];
+			return;      
+    }
+		
+    NSTask* task = [[NSTask new] autorelease];
 		[task setLaunchPath:exePath];
 		[task setCurrentDirectoryPath:projectPath];
     [task setArguments:[NSArray arrayWithObjects:@"ls", @"-l", nil]];
@@ -99,22 +156,26 @@ static FossilIcons *SharedInstance;
 				{
           long statusEndIndex = [line rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]].location;
 					NSString *statusString = [line substringToIndex:statusEndIndex];
-          NSString *filename = [projectPath stringByAppendingPathComponent:[[line substringFromIndex:statusEndIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+          NSString *filename = [localRoot stringByAppendingPathComponent:[[line substringFromIndex:statusEndIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
           const char* statusChar = [[statusString substringToIndex:1] UTF8String];
 					SCMIconsStatus status = SCMIconsStatusUnknown;
 					switch(*statusChar)
 					{
             case 'U': /* UNCHANGED */
+              NSLog(@"unchanged");
               status = SCMIconsStatusVersioned;
               break;
 						case 'E': /* EDITED */
             case 'R': /* RENAMED */
+              NSLog(@"edited");
               status = SCMIconsStatusModified;
               break;
 						case 'A': /* ADDED */
+              NSLog(@"added");
               status = SCMIconsStatusAdded;
               break;
 						case 'D': /* DELETED */
+              NSLog(@"deleted");
               status = SCMIconsStatusDeleted;
               break;
 					}
