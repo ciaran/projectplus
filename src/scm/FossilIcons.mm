@@ -100,11 +100,6 @@ static FossilIcons *SharedInstance;
           long statusEndIndex = [line rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]].location;
 					NSString *statusString = [line substringToIndex:statusEndIndex];
           NSString *filename = [projectPath stringByAppendingPathComponent:[[line substringFromIndex:statusEndIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-//          if (path) {
-//            if (![filename hasPrefix:path]) {
-//              continue; /* we're only interested in files inside path */
-//            }
-//          }
           const char* statusChar = [[statusString substringToIndex:1] UTF8String];
 					SCMIconsStatus status = SCMIconsStatusUnknown;
 					switch(*statusChar)
