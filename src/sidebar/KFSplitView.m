@@ -166,6 +166,8 @@ static BOOL kfScaleUInts(unsigned *integers, int numInts, unsigned targetTotal)
 
 - (void)kfSetup
 {
+    [self setDividerStyle:NSSplitViewDividerStyleThin];
+	
     // be sure to setup cursors before calling setVertical:
     [self kfSetupResizeCursors];
 
